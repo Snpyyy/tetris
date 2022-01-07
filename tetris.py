@@ -10,13 +10,14 @@ moveY = 1   # 開始位置(Y座標)
 
 # ブロック作成
 tetroI = [0,0, 0,-1, 0,1, 0,2]
-tetrol = [-1,1, 0,-1, 0,0, 0,1]
+tetroJ = [-1,1, 0,-1, 0,0, 0,1]
 tetroL = [0,0, 0,-1, 1,1, 0,1]
 tetroO = [0,0, 1,0, 0,-1, 1,-1,]
 tetroS = [-1,0, 0,-1, 1,-1, 0,0]
 tetroT = [-1,0, 0,0, 1,0, 0,1]
 tetroZ = [-1,-1, 0,-1, 1,0, 0,0]
-tetro  = [tetroI, tetrol, tetroL, tetroO, tetroS, tetroT, tetroZ]
+tetro  = [tetroI, tetroJ, tetroL, tetroO, tetroS, tetroT, tetroZ]
+color = ["red", "yellow", "lime", "green", "blue", "navy", "fuchsia"]
 type = random.randint(0,6)
 
 # テトリスブロック描写
@@ -25,7 +26,7 @@ def draw_tetris():
     while i < 4:
         x = (tetro[type] [ i * 2 ] + moveX) * size
         y = (tetro[type] [ i * 2 + 1 ] + moveY) * size
-        can.create_rectangle( x, y, x+size, y+size, fill="red")
+        can.create_rectangle( x, y, x+size, y+size, fill=color[type])
         i += 1
 
 # 再帰的処理
