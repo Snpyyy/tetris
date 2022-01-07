@@ -2,10 +2,15 @@
 
 import tkinter as tk
 
-Size = 30
+Size = 50
 
-win = tk.Tk()
-can = tk.Canvas(win, width= 10*Size, height=20*Size )
+app = tk.Tk()
+can = tk.Canvas(app, width= 10*Size, height=20*Size )
 can.pack()
 
-win.mainloop()
+# 再帰的処理
+def game_loop():
+    can.delete("all")
+    draw_tetris()
+
+app.mainloop()
