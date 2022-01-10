@@ -81,7 +81,8 @@ def keypress(event):
     global moveX, moveY
     judge_x = moveX
     judge_y = moveY
-    
+    rotation = []
+    rotation.extend(tetro[type])
     if event.keysym == "Left":
         judge_x -= 1
     elif event.keysym == "Right":
@@ -90,22 +91,31 @@ def keypress(event):
         judge_y -= 1
     elif event.keysym == "Down":
         judge_y += 1
-    judge(judge_x, judge_y)
+    elif event.keysym == "space":
+        rotation.clear()
+        i = 0
+        while i < 4:
+            rotation.append(tetro[type][i*2+1]*(-1))
+            rotation.append(tetro[type][i*2])
+            i += 1
+    judge(judge_x, judge_y, rotation)
 
 # 当たり判定の確認
-def judge(x, y):
+def judge(x, y, rotation):
     global moveX, moveY
     result = True
     i = 0
     while i < 4:
-        j = tetro[type] [i * 2] + x
-        k = tetro[type] [i * 2 + 1] + y
+        j = rotation [i * 2] + x
+        k = rotation [i * 2 + 1] + y
         if defence_field[ k ] [ j ] != 7:
             result = False
         i += 1
     if result == True:
             moveX = x
             moveY = y
+            tetro[type].clear()
+            tetro[type].extend(rotation)
         
 
 # 再帰的処理
