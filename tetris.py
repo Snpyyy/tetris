@@ -43,7 +43,7 @@ tetroS = [-1,0, 0,-1, 1,-1, 0,0]
 tetroT = [-1,0, 0,0, 1,0, 0,1]
 tetroZ = [-1,-1, 0,-1, 1,0, 0,0]
 tetro  = [tetroI, tetroJ, tetroL, tetroO, tetroS, tetroT, tetroZ]
-color = ["red", "yellow", "lime", "green", "blue", "navy", "fuchsia", "gray", "black"]
+color = ["red", "yellow", "lime", "green", "blue", "navy", "fuchsia", "white", "black"]
 type = random.randint(0,6)
 
 # テトリスブロック描写
@@ -66,7 +66,7 @@ def game_field():
             can.create_rectangle( 
                         field_x, field_y,   #始点
                         field_x + size, field_y + size, #終点
-                        width=1, outline="#ACACAC")   #オプション
+                        width=1, fill=color[defence_field[i][j]] ,outline="#ACACAC")   #オプション
             if defence_field[i][j] == 8:
                 can.create_rectangle( 
                         field_x, field_y,   #始点
@@ -87,8 +87,8 @@ def keypress(event):
         judge_x -= 1
     elif event.keysym == "Right":
         judge_x += 1
-    elif event.keysym == "Up":
-        judge_y -= 1
+    # elif event.keysym == "Up":
+    #     judge_y -= 1
     elif event.keysym == "Down":
         judge_y += 1
     elif event.keysym == "space":
@@ -116,7 +116,25 @@ def judge(x, y, rotation):
             moveY = y
             tetro[type].clear()
             tetro[type].extend(rotation)
-        
+    return result
+
+def drop_tetris():
+    global moveX, moveY, type
+    rotation = []
+    rotation.extend(tetro[type])
+    result = judge(moveX, moveY +1, rotation)
+    if result == False:
+        i = 0
+        while i < 4:
+            x = tetro[type][i*2] + moveX
+            y = tetro[type][i*2+1] + moveY
+            defence_field[y][x] = type
+            i += 1
+        type = random.randint(0,6)
+        moveX = 4
+        moveY = 1
+    can.after(1000, drop_tetris)
+
 
 # 再帰的処理
 def game_loop():
@@ -135,7 +153,7 @@ can.pack()
 app.bind("<KeyPress>", keypress)
 
 game_loop()
-
+drop_tetris()
 
 #----END---
 app.mainloop()
