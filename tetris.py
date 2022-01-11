@@ -130,11 +130,24 @@ def drop_tetris():
             y = tetro[type][i*2+1] + moveY
             defence_field[y][x] = type
             i += 1
+        delete_line()
         type = random.randint(0,6)
         moveX = 4
         moveY = 1
     can.after(1000, drop_tetris)
 
+def delete_line():
+    i = 1
+    j = 0
+    k = 0
+    while i < 21:
+        if 7 not in defence_field[i]:
+            while j < i:
+                while k < 12:
+                    defence_field[i-j][k] = defence_field[i-j-1][k]
+                    k += 1
+                j += 1
+        i += 1
 
 # 再帰的処理
 def game_loop():
