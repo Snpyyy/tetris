@@ -2,6 +2,7 @@
 
 import tkinter as tk
 import random
+from tkinter import messagebox
 
 # 定義
 size = 30   # サイズ
@@ -147,6 +148,13 @@ def delete_line():
                     defence_field[i-j][k] = defence_field[i-j-1][k]
                     k += 1
                 j += 1
+        i += 1
+    
+    i = 1
+    while i < 11:
+        if 7 != defence_field[1][i]:
+            messagebox.showinfo("information", "GAMEOVER")
+            exit()
         i += 1
 
 # 再帰的処理
