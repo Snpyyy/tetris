@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 
-import tkinter as tk
+import tkinter 
 import random
 from tkinter import messagebox
 
@@ -72,7 +72,7 @@ def game_field():
                 can.create_rectangle( 
                         field_x, field_y,   #始点
                         field_x + size, field_y + size, #終点
-                        fill="black")   #オプション
+                        fill=color[8])   #オプション
             j += 1
         i += 1
         j = 0
@@ -139,18 +139,18 @@ def drop_tetris():
 
 def delete_line():
     i = 1
-    j = 0
-    k = 0
     while i < 21:
         if 7 not in defence_field[i]:
+            j = 0
             while j < i:
+                k = 0
                 while k < 12:
                     defence_field[i-j][k] = defence_field[i-j-1][k]
                     k += 1
                 j += 1
         i += 1
-    
-    i = 1
+
+    i = 1  #GAMEOVER
     while i < 11:
         if 7 != defence_field[1][i]:
             messagebox.showinfo("information", "GAMEOVER")
@@ -166,8 +166,8 @@ def game_loop():
 
 #-----------------------------------
 
-app = tk.Tk()
-can = tk.Canvas(app, width= size*12, height = size*21, bg="#E5E5E5" )
+app = tkinter.Tk()
+can = tkinter.Canvas(app, width= size*12, height = size*21, bg="#E5E5E5" )
 can.pack()
 #---処理---
 
